@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Burgués - Productos</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/datepicker3.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="tables/pedidos.css" rel="stylesheet">
+    <link rel="shortcut icon" href="imagen/favicon.png" />
+
+    <!--Custom Font-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	
+	
+    <!--script de firebse-->
+ <!--script de firebse-->
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"> </script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse"><span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span></button>
+                <a class="navbar-brand" href="#"><span>Burgués</span> Cocina</a>
+                <ul class="nav navbar-top-links navbar-right">
+
+                </ul>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+        <div class="profile-sidebar">
+            <div class="profile-userpic">
+                <img src="imagen/images.png" class="img-responsive" alt="">
+            </div>
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">Username</div>
+                <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="divider"></div>
+
+        <ul class="nav menu">
+            <li class="active"><a href="index.html"><em class="fa fa-home">&nbsp;</em> Inicio</a></li>
+            <li><a href="ordenes.html"><em class="fa fa-cutlery">&nbsp;</em> Órdenes</a></li>
+            <li><a href="productos.html"><em class="fa fa-cart-plus">&nbsp;</em> Productos</a></li>
+            <li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+        </ul>
+    </div>
+    <!--/.sidebar-->
+
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Pedidos de Productos de Cocina.</h1>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#registrarEmpleado"><span class="icon-add-user"></span>Agregar Ingredientes</button>
+        </div>
+        <div class="panel panel-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sucursal</th>
+                        <th>Pedido</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>proveedor</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaProductos">
+
+                </tbody>
+            </table>
+        </div>
+
+        <!--/.col-->
+        <div class="col-sm-12">
+            <p class="back-link">Burguès by <a href="">Developerslocos</a></p>
+        </div>
+
+        <div class="modal fade" id="registrarEmpleado" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalScrollableTitle">Registrar Un Nuevo Gerente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form class="form-horizontal" id="form" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        <label for="">Sucursal</label>
+                                        <select id="sucursal" class="form-control" name="sucursal" required="">
+                                            <option selected="true" hidden="true" value="" disabled>-- sucursal --
+                                            </option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        <label for="">Descripcion de los productos</label>
+                                        <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="Descripcion">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        <label for="">Sucursal</label>
+                                        <select id="proveedor" class="form-control" name="proveedor" required="">
+                                            <option selected="true" hidden="true" value="" disabled>-- Proveedor --
+                                            </option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        <button type="button" id="boton" onclick="RegistrarProductos();" class="btn btn-primary">Registrar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--/.col-->
+    <div class="col-sm-12">
+        <p class="back-link">Burgués by <a href="">DevMast.com</a></p>
+    </div>
+    </div>
+    <!--/.row-->
+    </div>
+    <!--/.main-->
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/chart.min.js"></script>
+    <script src="js/chart-data.js"></script>
+    <script src="js/easypiechart.js"></script>
+    <script src="js/easypiechart-data.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/custom.js"></script>
+    
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+        <script src="inventario.js"></script>
+
+
+    
+
+</body>
+
+</html>
